@@ -9,3 +9,9 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+//automatically-inits for demo
+const timeout = setTimeout(() => {
+  window.grinWidgetLaunch(0, "0", "development");
+  clearTimeout(timeout);
+}, 1000)
