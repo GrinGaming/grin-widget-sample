@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# GrinData Widget
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The GrinWidget is in Vanilla Javascript and can easily be inserted into a project by importing the script, and calling the global function in your own code.
 
-## Available Scripts
+## Get Started
 
-In the project directory, you can run:
+Add this code to the head of your index.html file:
 
-### `npm start`
+    <script  type="module"  src="https://widget.grindata.io/widget/widget.js"  id="grin-widget-module"></script>
+    <link rel="stylesheet"  href="https://widget.grindata.io/widget/widget-mobile.css"  type="text/css">
+    <link  rel="preload"  href="https://use.typekit.net/wvy0rhu.css">
+    <link  rel="stylesheet"  href="https://use.typekit.net/wvy0rhu.css">
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Target the container
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To start the widget, you must have a container identified with the id "grin-widget"
 
-### `npm test`
+    <div  id="grin-widget"></div>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Initiate the widget
 
-### `npm run build`
+Call the widget to open using the grinWidgetLaunch function, in the sample this is automatically launched from the App.js file with a timeout for simple demonstration. In your project, you'd likely want to initiate this on an action that makes sense for your flow.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    //automatically-inits for demo
+    const  timeout = setTimeout(() => {
+	    window.grinWidgetLaunch(0, "0");
+	    clearTimeout(timeout);
+    }, 1000)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Methods
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## grinWidgetLaunch( *customer_id ,  uuid, environment, game_id* )
 
-### `npm run eject`
+This function opens the widget to the main menu sport selection screen, and takes customer / user information to authenticate.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+|Parameter  | Type  | Description |
+|--|--|--|
+| customer_id | integer | Your customer_id to identify your platform |
+| uuid | string | The UUID of the accessing user, this can follow your own format, as long as it is unique to the specific user.
+| environment | string | Declare "development" or "production" |
+| game_id | string (optional) | Used to open the widget directly to a game after launch
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## grinWidgetGameListView( *game* )
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This function opens the widget to the list of games associated with a game type, such as NFL.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+|Parameter  | Type  | Description |
+|--|--|--|
+| game | string | The game league you want to display, current options include "NFL" / "NBA" / "MLB"/ "WNBA" / "SOCCER" |
 
-## Learn More
+## grinWidgetGameView( *game_id* )
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This function opens the widget to the specific game, this is the main usage view of the widget, game_id can originally be obtained from the GrinData API endpoint `<api>/v1/games/<league>`, an example being `https://api.grindata.io/v1/games/NFL`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+|Parameter  | Type  | Description |
+|--|--|--|
+| game_id | string | The game specific identifier |
